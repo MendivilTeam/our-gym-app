@@ -1,0 +1,17 @@
+name: PR title
+
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+
+jobs:
+  pr-title:
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          if [[ ! "$TITLE" =~ ^\[#[0-9]+\]\ -\ [^[:space:]] ]]; then
+            echo "::error::PR title must follow '[#issue] - Description', got: $TITLE"
+            exit 1
+          fi
