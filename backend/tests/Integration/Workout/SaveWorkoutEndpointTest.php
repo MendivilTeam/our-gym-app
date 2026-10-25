@@ -48,6 +48,28 @@ final class SaveWorkoutEndpointTest extends TestCase
             ->assertJsonValidationErrors(['date']);
     }
 
+    #[Test]
+    public function givenTooManyExercisesReturns422WithFieldErrors(): void
+    {
+        $workout = $this->workout();
+        $workout['exercises'] = array_fill(0, 51, $workout['exercises'][0]);
+
+        $this->postJson('/api/workouts', $workout)
+            ->assertUnprocessable()
+            ->assertJsonValidationErrors(['exercises']);
+    }
+
+    #[Test]
+    public function givenTooManySetsReturns422WithFieldErrors(): void
+    {
+        $workout = $this->workout();
+        $workout['exercises'][0]['sets'] = array_fill(0, 51, $workout['exercises'][0]['sets'][0]);
+
+        $this->postJson('/api/workouts', $workout)
+            ->assertUnprocessable()
+            ->assertJsonValidationErrors(['exercises.0.sets']);
+    }
+
     /**
      * @return array{title: string, date: string, duration_minutes: int, exercises: list<array{title: string, sets: list<array{repetitions: int, weight: float}>}>}
      */
