@@ -14,6 +14,17 @@ final readonly class WorkoutDate
         $this->validate();
     }
 
+    public static function fromString(string $date): self
+    {
+        $parsedDate = DateTimeImmutable::createFromFormat('!Y-m-d', $date);
+
+        if ($parsedDate === false || $parsedDate->format('Y-m-d') !== $date) {
+            throw InvalidWorkout::invalidDate();
+        }
+
+        return new self($parsedDate);
+    }
+
     private function validate(): void
     {
         if ($this->value > new DateTimeImmutable('today')) {

@@ -6,6 +6,7 @@ use DateTimeImmutable;
 use OurGym\Workout\Domain\InvalidWorkout;
 use OurGym\Workout\Domain\WorkoutDate;
 use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\Attributes\TestWith;
 use PHPUnit\Framework\TestCase;
 
 final class WorkoutDateTest extends TestCase
@@ -32,5 +33,22 @@ final class WorkoutDateTest extends TestCase
         $this->expectException(InvalidWorkout::class);
 
         new WorkoutDate(new DateTimeImmutable('tomorrow'));
+    }
+
+    #[Test]
+    public function givenValidStringCreatesWorkoutDate(): void
+    {
+        $this->assertEquals(new DateTimeImmutable('2026-01-15'), WorkoutDate::fromString('2026-01-15')->value);
+    }
+
+    #[Test]
+    #[TestWith(['2026-02-30'])]
+    #[TestWith(['tomorrow'])]
+    #[TestWith(['not-a-date'])]
+    public function givenInvalidStringThrowsInvalidWorkout(string $date): void
+    {
+        $this->expectException(InvalidWorkout::class);
+
+        WorkoutDate::fromString($date);
     }
 }
