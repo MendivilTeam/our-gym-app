@@ -2,7 +2,6 @@
 
 namespace OurGym\Workout\Application;
 
-use DateTimeImmutable;
 use OurGym\Workout\Domain\Duration;
 use OurGym\Workout\Domain\Exercise;
 use OurGym\Workout\Domain\ExerciseSet;
@@ -26,7 +25,7 @@ final readonly class SaveWorkout
         $workout = new Workout(
             WorkoutId::generate(),
             new Title($data['title']),
-            new WorkoutDate(new DateTimeImmutable($data['date'])),
+            WorkoutDate::fromString($data['date']),
             new Duration($data['duration_minutes']),
             ...array_map($this->createExercise(...), $data['exercises']),
         );

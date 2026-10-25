@@ -26,6 +26,11 @@ final class InvalidWorkout extends DomainException
         return new self('Title cannot be empty.');
     }
 
+    public static function invalidDate(): self
+    {
+        return new self('Workout date must be a real date in YYYY-MM-DD format.');
+    }
+
     public static function futureDate(): self
     {
         return new self('Workout date cannot be in the future.');
