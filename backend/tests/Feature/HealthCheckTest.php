@@ -2,11 +2,13 @@
 
 namespace Tests\Feature;
 
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class HealthCheckTest extends TestCase
 {
-    public function test_health_endpoint_responds_successfully(): void
+    #[Test]
+    public function givenRunningApplicationHealthEndpointReturnsOk(): void
     {
         $this->get('/up')->assertOk();
     }

@@ -6,4 +6,5 @@ parameters:
     paths:
         - app
         - database
+        - src
         - tests
