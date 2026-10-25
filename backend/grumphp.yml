@@ -1,4 +1,7 @@
 grumphp:
+    environment:
+        variables:
+            DB_HOST: 127.0.0.1
     tasks:
         git_commit_message:
             matchers:

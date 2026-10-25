@@ -6,7 +6,7 @@ Everything in English: code, commits, issues, PRs, docs.
 ## Commands (from `backend/`)
 - Start: `vendor/bin/sail up -d`
 - Tests: `vendor/bin/sail artisan test`
-- All checks (same as CI): `vendor/bin/grumphp run`
+- All checks (same as CI): `vendor/bin/grumphp run`. Runs on the host against Sail's PostgreSQL, so Sail must be up and the host PHP needs `pdo_pgsql`
 
 ## Principles
 - Solve the issue with the minimum code needed. Minimum means no speculative features or unused abstractions, not fewer lines: readability wins over compact tricks (nested ternaries, clever one-liners).
